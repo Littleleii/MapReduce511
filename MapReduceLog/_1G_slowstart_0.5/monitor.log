@@ -1,0 +1,250 @@
+===== Real Performance Monitor Started at 2025年 11月 28日 星期五 02:07:05 CST =====
+[worker1-zzh] CPU: 21.00% | MEM: 19%
+[worker2-zrt] CPU: 56.00% | MEM: 28%
+[worker3-haz] CPU: 12.00% | MEM: 25%
+----
+[worker1-zzh] CPU: 9.00% | MEM: 19%
+[worker2-zrt] CPU: 94.00% | MEM: 30%
+[worker3-haz] CPU: 11.00% | MEM: 25%
+----
+[worker1-zzh] CPU: 10.00% | MEM: 19%
+[worker2-zrt] CPU: 98.00% | MEM: 32%
+[worker3-haz] CPU: 27.00% | MEM: 25%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 32%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 39%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 33%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 39%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 31%
+[worker2-zrt] CPU: 100.00% | MEM: 52%
+[worker3-haz] CPU: 100.00% | MEM: 36%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 34%
+[worker2-zrt] CPU: 100.00% | MEM: 53%
+[worker3-haz] CPU: 100.00% | MEM: 48%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 31%
+[worker2-zrt] CPU: 100.00% | MEM: 36%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 46%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 42%
+[worker2-zrt] CPU: 100.00% | MEM: 45%
+[worker3-haz] CPU: 100.00% | MEM: 31%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 39%
+[worker2-zrt] CPU: 100.00% | MEM: 54%
+[worker3-haz] CPU: 100.00% | MEM: 41%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 30%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 26%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 35%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 30%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 46%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 33%
+[worker2-zrt] CPU: 100.00% | MEM: 50%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 50%
+[worker3-haz] CPU: 100.00% | MEM: 47%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 31%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 36%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 43%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 45%
+[worker3-haz] CPU: 100.00% | MEM: 30%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 30%
+[worker2-zrt] CPU: 100.00% | MEM: 54%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 32%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 29%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 35%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 28%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 47%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 31%
+[worker2-zrt] CPU: 100.00% | MEM: 49%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 34%
+[worker2-zrt] CPU: 100.00% | MEM: 47%
+[worker3-haz] CPU: 100.00% | MEM: 46%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 36%
+[worker2-zrt] CPU: 100.00% | MEM: 37%
+[worker3-haz] CPU: 100.00% | MEM: 30%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 41%
+[worker3-haz] CPU: 100.00% | MEM: 41%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 29%
+[worker2-zrt] CPU: 100.00% | MEM: 48%
+[worker3-haz] CPU: 100.00% | MEM: 49%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 55%
+[worker3-haz] CPU: 100.00% | MEM: 34%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 32%
+[worker2-zrt] CPU: 100.00% | MEM: 43%
+[worker3-haz] CPU: 100.00% | MEM: 46%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 31%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 30%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 44%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 34%
+[worker2-zrt] CPU: 100.00% | MEM: 48%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 42%
+[worker2-zrt] CPU: 100.00% | MEM: 49%
+[worker3-haz] CPU: 100.00% | MEM: 44%
+----
+[worker1-zzh] CPU: 82.00% | MEM: 30%
+[worker2-zrt] CPU: 100.00% | MEM: 37%
+[worker3-haz] CPU: 100.00% | MEM: 32%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 31%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 40%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 100.00% | MEM: 44%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 37%
+[worker2-zrt] CPU: 100.00% | MEM: 51%
+[worker3-haz] CPU: 100.00% | MEM: 37%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 45%
+[worker2-zrt] CPU: 100.00% | MEM: 48%
+[worker3-haz] CPU: 100.00% | MEM: 47%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 38%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 37%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 41%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 37%
+[worker2-zrt] CPU: 100.00% | MEM: 47%
+[worker3-haz] CPU: 100.00% | MEM: 41%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 49%
+[worker3-haz] CPU: 100.00% | MEM: 41%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 34%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 37%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 43%
+[worker3-haz] CPU: 100.00% | MEM: 44%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 50%
+[worker3-haz] CPU: 100.00% | MEM: 39%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 44%
+[worker2-zrt] CPU: 100.00% | MEM: 39%
+[worker3-haz] CPU: 100.00% | MEM: 40%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 39%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 100.00% | MEM: 47%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 37%
+[worker2-zrt] CPU: 100.00% | MEM: 42%
+[worker3-haz] CPU: 100.00% | MEM: 33%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 42%
+[worker2-zrt] CPU: 100.00% | MEM: 48%
+[worker3-haz] CPU: 100.00% | MEM: 38%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 41%
+[worker2-zrt] CPU: 100.00% | MEM: 37%
+[worker3-haz] CPU: 100.00% | MEM: 44%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 100.00% | MEM: 40%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 40%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 100.00% | MEM: 46%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 39%
+[worker2-zrt] CPU: 100.00% | MEM: 49%
+[worker3-haz] CPU: 100.00% | MEM: 35%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 37%
+[worker2-zrt] CPU: 100.00% | MEM: 38%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 39%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 100.00% | MEM: 40%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 41%
+[worker2-zrt] CPU: 100.00% | MEM: 46%
+[worker3-haz] CPU: 100.00% | MEM: 42%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 42%
+[worker2-zrt] CPU: 100.00% | MEM: 46%
+[worker3-haz] CPU: 100.00% | MEM: 45%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 42%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 100.00% | MEM: 40%
+----
+[worker1-zzh] CPU: 11.00% | MEM: 29%
+[worker2-zrt] CPU: 100.00% | MEM: 43%
+[worker3-haz] CPU: 12.00% | MEM: 27%
+----
+[worker1-zzh] CPU: 59.00% | MEM: 29%
+[worker2-zrt] CPU: 71.00% | MEM: 32%
+[worker3-haz] CPU: 22.00% | MEM: 27%
+----
+[worker1-zzh] CPU: 11.00% | MEM: 21%
