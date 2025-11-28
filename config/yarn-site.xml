@@ -1,0 +1,73 @@
+<configuration>
+
+    <!-- ================== ResourceManager 配置 ================== -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>master-wxl</value>
+    </property>
+
+    <!-- Shuffle 必须启用 -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+
+    <!-- ================== YARN 容器资源限制 ================== -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>8192</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>2</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>512</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>8192</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.minimum-allocation-vcores</name>
+        <value>1</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>2</value>
+    </property>
+
+
+    <!-- ================== ★★ 必须新增：日志聚合功能 ★★ ================== -->
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+
+    <!-- 将所有 container 日志聚合到 HDFS: /tmp/logs -->
+    <property>
+        <name>yarn.nodemanager.remote-app-log-dir</name>
+        <value>/tmp/logs</value>
+    </property>
+
+    <!-- 日志保存天数（可改） -->
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>604800</value>
+    </property>
+
+    <!-- 关闭过时的非聚合日志（建议关闭） -->
+    <property>
+        <name>yarn.nodemanager.log-aggregation.roll-monitoring-interval-seconds</name>
+        <value>86400</value>
+    </property>
+
+</configuration>
+

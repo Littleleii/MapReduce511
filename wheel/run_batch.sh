@@ -13,7 +13,7 @@ if [ -z "$INPUT" ] || [ -z "$OUTPUT" ]; then
 fi
 
 # slowstart 参数
-SLOWSTART_VALUES=(0.2 0.5 0.8 1.0)
+SLOWSTART_VALUES=(0.3 0.4 0.6 0.7)
 
 # 每个 slowstart 跑几次
 RUNS_PER_SS=3

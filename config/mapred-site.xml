@@ -1,0 +1,46 @@
+<configuration>
+
+  <property>
+     <name>mapreduce.framework.name</name>
+     <value>yarn</value>
+  </property>
+
+  <!-- 环境变量 -->
+  <property>
+     <name>yarn.app.mapreduce.am.env</name>
+     <value>HADOOP_MAPRED_HOME=/usr/local/hadoop</value>
+  </property>
+
+  <property>
+     <name>mapreduce.map.env</name>
+     <value>HADOOP_MAPRED_HOME=/usr/local/hadoop</value>
+  </property>
+
+  <property>
+     <name>mapreduce.reduce.env</name>
+     <value>HADOOP_MAPRED_HOME=/usr/local/hadoop</value>
+  </property>
+
+  <!-- ========== ★ 必须加 → JobHistory 服务配置（只在 master 生效） ========== -->
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>master-wxl:10020</value>
+  </property>
+
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>master-wxl:19888</value>
+  </property>
+
+  <property>
+    <name>mapreduce.jobhistory.done-dir</name>
+    <value>/mr-history/done</value>
+  </property>
+
+  <property>
+    <name>mapreduce.jobhistory.intermediate-done-dir</name>
+    <value>/mr-history/tmp</value>
+  </property>
+
+</configuration>
+

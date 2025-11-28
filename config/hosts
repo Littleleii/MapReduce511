@@ -1,0 +1,16 @@
+127.0.0.1	localhost
+127.0.1.1	ubuntu
+
+
+# Hadoop cluster nodes
+192.168.10.104   master-wxl 
+192.168.10.107   worker1-zzh
+192.168.10.131   worker2-zrt
+192.168.10.110   worker3-haz
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
