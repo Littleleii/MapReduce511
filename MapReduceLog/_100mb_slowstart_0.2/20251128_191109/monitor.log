@@ -1,0 +1,55 @@
+===== Real Performance Monitor Started at 2025年 11月 28日 星期五 19:11:09 CST =====
+[worker1-zzh] CPU: 10.00% | MEM: 23%
+[worker2-zrt] CPU: 32.00% | MEM: 28%
+[worker3-haz] CPU: 12.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 8.00% | MEM: 23%
+[worker2-zrt] CPU: 90.00% | MEM: 30%
+[worker3-haz] CPU: 13.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 9.00% | MEM: 23%
+[worker2-zrt] CPU: 81.00% | MEM: 32%
+[worker3-haz] CPU: 12.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 47%
+[worker2-zrt] CPU: 100.00% | MEM: 38%
+[worker3-haz] CPU: 12.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 13.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 43%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 12.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 54%
+[worker3-haz] CPU: 11.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 44%
+[worker3-haz] CPU: 12.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 35%
+[worker2-zrt] CPU: 100.00% | MEM: 37%
+[worker3-haz] CPU: 15.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 100.00% | MEM: 38%
+[worker2-zrt] CPU: 100.00% | MEM: 40%
+[worker3-haz] CPU: 11.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 10.00% | MEM: 25%
+[worker2-zrt] CPU: 100.00% | MEM: 45%
+[worker3-haz] CPU: 16.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 10.00% | MEM: 25%
+[worker2-zrt] CPU: 100.00% | MEM: 49%
+[worker3-haz] CPU: 14.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 10.00% | MEM: 25%
+[worker2-zrt] CPU: 100.00% | MEM: 46%
+[worker3-haz] CPU: 22.00% | MEM: 19%
+----
+[worker1-zzh] CPU: 40.00% | MEM: 25%
+[worker2-zrt] CPU: 49.00% | MEM: 32%

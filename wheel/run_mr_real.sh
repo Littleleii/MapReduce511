@@ -10,37 +10,34 @@ SLOWSTART=$3
 
 if [ -z "$INPUT" ] || [ -z "$OUTPUT" ] || [ -z "$SLOWSTART" ]; then
     echo "Usage: ./run_mr_real.sh <input_path> <output_path> <slowstart>"
-    echo "Example: ./run_mr_real.sh /wiki1G/* /_1G 0.8"
     exit 1
 fi
 
 ###############################
-# 1) 创建日志目录（包含 slowstart）
+# 使用外部传入的 RUN_LOG_DIR
 ###############################
-OUTNAME=$(basename "$OUTPUT")   # 如 "/_1G" → "_1G"
-LOG_DIR="$HOME/code/MapReduceLog/${OUTNAME}_slowstart_${SLOWSTART}"
+if [ -z "$RUN_LOG_DIR" ]; then
+    echo "[ERROR] RUN_LOG_DIR is not set! This script must be called from run_batch.sh"
+    exit 1
+fi
 
-mkdir -p "$LOG_DIR"
-echo "[INFO] Log directory: $LOG_DIR"
+mkdir -p "$RUN_LOG_DIR"
+echo "[INFO] Log directory for this run: $RUN_LOG_DIR"
 
+MONITOR_LOG="$RUN_LOG_DIR/monitor.log"
+JOB_LOG="$RUN_LOG_DIR/job_output.log"
 
 ###############################
-# 2) 启动监控 monitor_real.sh
+# 启动监控
 ###############################
-MONITOR_LOG="$LOG_DIR/monitor.log"
-
 bash "$HOME/code/wheel/monitor_real.sh" "$MONITOR_LOG" &
 MONITOR_PID=$!
-
 echo "[INFO] Performance monitor started, PID=$MONITOR_PID"
 sleep 1
 
-
 ###############################
-# 3) 运行 MapReduce 并记录输出
+# 运行 MapReduce
 ###############################
-JOB_LOG="$LOG_DIR/job_output.log"
-
 {
     echo "===== Running MapReduce Job ====="
     echo "Input : $INPUT"
@@ -50,28 +47,25 @@ JOB_LOG="$LOG_DIR/job_output.log"
     echo "================================="
 } > "$JOB_LOG"
 
-# 删除旧输出（避免冲突）
+# 删除旧 HDFS 输出（避免冲突）
 hdfs dfs -rm -r -f "$OUTPUT" >/dev/null 2>&1
 
-# 执行 Hadoop WordCount（新增：递归读取子目录）
 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar \
     wordcount \
     -D mapreduce.job.reduce.slowstart.completedmaps=$SLOWSTART \
     -D mapreduce.input.fileinputformat.input.dir.recursive=true \
     "$INPUT" "$OUTPUT" 2>&1 | tee -a "$JOB_LOG"
 
-echo "[INFO] MapReduce job finished."
-
+echo "[INFO] MapReduce job finished." | tee -a "$JOB_LOG"
 
 ###############################
-# 4) 停止监控
+# 停止监控
 ###############################
 kill $MONITOR_PID >/dev/null 2>&1
 wait $MONITOR_PID 2>/dev/null
 
-echo "[INFO] Monitor stopped."
-echo "[INFO] All logs saved to: $LOG_DIR"
+echo "[INFO] Monitor stopped." | tee -a "$JOB_LOG"
+echo "[INFO] Logs saved to: $RUN_LOG_DIR"
 
 exit 0
-
 
