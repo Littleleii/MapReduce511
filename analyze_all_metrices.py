@@ -1,135 +1,120 @@
 import pandas as pd
 import os
 import re
-import datetime
 import numpy as np
+from common_utils import scan_multiple_runs, average_stage_data, sort_dataset_key
 
 # 配置：pandas 显示选项
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
-pd.set_option('display.precision', 1)  # 保留1位小数
+pd.set_option('display.precision', 2)  # ← 改为保留2位小数
 
 
-def parse_logs(base_dir):
+def build_dataframe_from_averaged_data(monitor_data, stage_data):
+    """从平均化后的数据构建 DataFrame（数值保留2位小数）"""
     results = []
+    all_datasets = set(monitor_data.keys()) | set(stage_data.keys())
 
-    if not os.path.exists(base_dir):
-        print(f"错误：目录 {base_dir} 不存在")
-        return pd.DataFrame()
+    for dataset in all_datasets:
+        ss_from_monitor = set(monitor_data.get(dataset, {}).keys())
+        ss_from_stage = set(stage_data.get(dataset, {}).keys())
+        all_slowstarts = ss_from_monitor | ss_from_stage
 
-    for folder_name in os.listdir(base_dir):
-        folder_path = os.path.join(base_dir, folder_name)
-        if not os.path.isdir(folder_path):
-            continue
+        for slowstart in all_slowstarts:
+            record = {
+                'Dataset': dataset,
+                'SlowStart': slowstart,
+                'Total_Time(s)': np.nan,
+                'Avg_CPU(%)': np.nan,
+                'Map_Time(s)': np.nan,
+                'Shuffle_Time(s)': np.nan,
+                'Reduce_Time(s)': np.nan,
+                'Overlap_Ratio(%)': np.nan
+            }
 
-        # 1. 提取数据集名称和 Slowstart 值
-        match = re.search(r'(\d+(?:G|M|MB|GB)?)_slowstart_([\d\.]+)', folder_name, re.IGNORECASE)
-        if not match:
-            continue
+            # 从 stage_data 获取时间信息（保留2位小数）
+            if dataset in stage_data and slowstart in stage_data[dataset]:
+                stage_info = stage_data[dataset][slowstart]
+                record['Total_Time(s)'] = round(stage_info.get('总耗时(s)', np.nan), 2)  # ← 添加 round
+                record['Map_Time(s)'] = round(stage_info.get('Map耗时(s)', np.nan), 2)
+                record['Shuffle_Time(s)'] = round(stage_info.get('Shuffle耗时(s)', np.nan), 2)
+                record['Reduce_Time(s)'] = round(stage_info.get('Reduce耗时(s)', np.nan), 2)
+                record['Overlap_Ratio(%)'] = round(stage_info.get('Shuffle重叠比(%)', np.nan), 2)
 
-        ds_name = match.group(1)
-        ss_val = float(match.group(2))
+            # 从 monitor_data 获取 CPU 信息（保留2位小数）
+            if dataset in monitor_data and slowstart in monitor_data[dataset]:
+                df = monitor_data[dataset][slowstart]
+                avg_cpu = round(df['CPU'].mean(), 2)  # ← 添加 round
+                record['Avg_CPU(%)'] = avg_cpu
 
-        # 2. 解析 job_output.log
-        job_log = os.path.join(folder_path, 'job_output.log')
-        duration = np.nan
-        gc_time = np.nan
-
-        if os.path.exists(job_log):
-            with open(job_log, 'r', encoding='utf-8', errors='ignore') as f:
-                content = f.read()
-                timestamps = re.findall(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', content)
-                if len(timestamps) >= 2:
-                    start = datetime.datetime.strptime(timestamps[0], '%Y-%m-%d %H:%M:%S')
-                    end = datetime.datetime.strptime(timestamps[-1], '%Y-%m-%d %H:%M:%S')
-                    duration = (end - start).total_seconds()
-
-                gc_match = re.search(r'GC time elapsed \(ms\)=(\d+)', content)
-                if gc_match:
-                    gc_time = int(gc_match.group(1)) / 1000.0
-
-        # 3. 解析 monitor.log
-        mon_log = os.path.join(folder_path, 'monitor.log')
-        avg_cpu = np.nan
-
-        if os.path.exists(mon_log):
-            cpu_vals = []
-            with open(mon_log, 'r', encoding='utf-8', errors='ignore') as f:
-                for line in f:
-                    m = re.search(r'CPU: (\d+\.\d+)%', line)
-                    if m:
-                        cpu_vals.append(float(m.group(1)))
-            if cpu_vals:
-                avg_cpu = np.mean(cpu_vals)
-
-        results.append({
-            'Dataset': ds_name,
-            'SlowStart': ss_val,
-            'Total_Time(s)': duration,
-            'Avg_CPU(%)': avg_cpu,
-            'GC_Time(s)': gc_time
-        })
+            results.append(record)
 
     return pd.DataFrame(results)
 
 
-def process_and_save(df, value_col, filename, criteria="min"):
-    """
-    生成透视表，打印到控制台，并保存为 CSV
-    """
-    if df.empty: return
+def process_and_save(df, value_col, filename, criteria="min", output_dir='Analysis_Results'):
+    """生成透视表并保存（数值保留2位小数）"""
+    if df.empty:
+        return
 
-    # 生成透视表
-    pivot = df.pivot_table(index='Dataset', columns='SlowStart', values=value_col, aggfunc='mean')
+    os.makedirs(output_dir, exist_ok=True)
 
-    # 排序：列按 slowstart 大小，行按数据集大小
+    # 生成透视表（保留2位小数）
+    pivot = df.pivot_table(index='Dataset', columns='SlowStart', values=value_col, aggfunc=lambda x: round(np.mean(x), 2))  # ← 添加 round
+
+    # 排序
     pivot = pivot.reindex(sorted(pivot.columns), axis=1)
-
-    def sort_key(name):
-        num = re.search(r'\d+', name)
-        val = int(num.group()) if num else 0
-        if 'G' in name.upper(): val *= 1000
-        return val
-
-    sorted_idx = sorted(pivot.index, key=sort_key)
+    sorted_idx = sorted(pivot.index, key=sort_dataset_key)
     pivot = pivot.reindex(sorted_idx)
 
-    # --- 1. 保存 CSV ---
-    # 保存前，我们添加一列 "Best_SS" 到 CSV 中方便查看
+    # --- 保存 CSV ---
     pivot_csv = pivot.copy()
     best_ss_col = []
     for idx, row in pivot_csv.iterrows():
+        valid_values = row.dropna()
+        if len(valid_values) == 0:
+            best_ss_col.append("N/A")
+            continue
+
         if criteria == 'min':
-            best_val = row.min()
+            best_val = valid_values.min()
         else:
-            best_val = row.max()
-        # 找到最优的列名
-        best_cols = row[row == best_val].index.tolist()
+            best_val = valid_values.max()
+
+        best_cols = valid_values[valid_values == best_val].index.tolist()
         best_ss_col.append(",".join(map(str, best_cols)))
 
     pivot_csv['Best_SlowStart'] = best_ss_col
-    pivot_csv.to_csv(filename)
-    print(f"[已保存] {filename}")
+    full_path = os.path.join(output_dir, filename)
+    pivot_csv.to_csv(full_path, float_format='%.2f')  # ← 确保CSV保留2位小数
+    print(f"  ✓ 已保存: {full_path}")
 
-    # --- 2. 打印控制台 (保持原有美观格式) ---
+    # --- 打印控制台 ---
     title_map = {
         'Total_Time(s)': '任务总耗时',
         'Avg_CPU(%)': '集群平均 CPU 利用率',
-        'GC_Time(s)': 'GC 总耗时'
+        'Map_Time(s)': 'Map 阶段耗时',
+        'Shuffle_Time(s)': 'Shuffle 阶段耗时',
+        'Reduce_Time(s)': 'Reduce 阶段耗时',
+        'Overlap_Ratio(%)': 'Shuffle 重叠比例'
     }
     title = title_map.get(value_col, value_col)
 
-    print(f"\n【 指标：{title} 】 ({'数值越小越优' if criteria == 'min' else '数值越大越优'})")
-    print("-" * 65)
+    print(f"\n【 指标：{title} (三次实验平均) 】 ({'数值越小越优' if criteria == 'min' else '数值越大越优'})")
+    print("-" * 80)
     header = f"{'Dataset':<10} | " + " | ".join([f"SS={str(c):<4}" for c in pivot.columns]) + " | Best SS"
     print(header)
-    print("-" * len(header))
+    print("-" * 80)
 
     for idx, row in pivot.iterrows():
+        valid_values = row.dropna()
+        if len(valid_values) == 0:
+            continue
+
         if criteria == 'min':
-            best_val = row.min()
+            best_val = valid_values.min()
         else:
-            best_val = row.max()
+            best_val = valid_values.max()
 
         line_str = f"{idx:<10} | "
         best_ss_list = []
@@ -142,36 +127,55 @@ def process_and_save(df, value_col, filename, criteria="min"):
 
             if val == best_val:
                 best_ss_list.append(str(col))
-                line_str += f"*{val:<6.1f} | "
+                line_str += f"*{val:<6.2f} | "  # ← 改为 .2f
             else:
-                line_str += f"{val:<7.1f} | "
+                line_str += f"{val:<7.2f} | "  # ← 改为 .2f
 
         print(f"{line_str} -> {','.join(best_ss_list)}")
-    print("-" * 65)
+    print("-" * 80)
 
 
 def main():
     base_dir = './MapReduceLog'
-    df = parse_logs(base_dir)
+    output_dir = 'Analysis_Results'
 
-    if df.empty:
-        print("未找到数据，请检查路径。")
+    print("=" * 80)
+    print("  MapReduce SlowStart 性能分析 (基于三次实验平均)")
+    print("=" * 80)
+
+    print("\n1. 扫描多轮实验数据...")
+    monitor_data, stage_data = scan_multiple_runs(base_dir)
+
+    if not monitor_data and not stage_data:
+        print("❌ 未找到数据，请检查路径")
         return
 
-    print("=" * 65)
-    print("  MapReduce SlowStart 性能分析 (生成CSV版)")
-    print("=" * 65)
+    print("\n2. 计算平均值...")
+    from common_utils import average_monitor_data
+    averaged_monitor = average_monitor_data(monitor_data)
+    averaged_stage = average_stage_data(stage_data)
 
-    # 1. 保存原始明细数据
-    df.to_csv("result_raw.csv", index=False)
-    print("[已保存] result_raw.csv (原始数据)")
+    print("\n3. 构建分析表格...")
+    df = build_dataframe_from_averaged_data(averaged_monitor, averaged_stage)
 
-    # 2. 生成各个指标的透视表并保存
-    process_and_save(df, 'Total_Time(s)', 'result_time.csv', criteria='min')
-    process_and_save(df, 'Avg_CPU(%)', 'result_cpu.csv', criteria='max')
-    process_and_save(df, 'GC_Time(s)', 'result_gc.csv', criteria='min')
+    if df.empty:
+        print("❌ 未能生成分析数据")
+        return
 
-    print("\n所有分析完成！CSV 文件已保存在当前目录下。")
+    os.makedirs(output_dir, exist_ok=True)
+    raw_file = os.path.join(output_dir, "result_raw.csv")
+    df.to_csv(raw_file, index=False, float_format='%.2f')  # ← CSV保留2位小数
+    print(f"\n  ✓ 已保存原始数据: {raw_file}")
+
+    print("\n4. 生成各指标分析表...")
+    process_and_save(df, 'Total_Time(s)', 'result_time.csv', criteria='min', output_dir=output_dir)
+    process_and_save(df, 'Avg_CPU(%)', 'result_cpu.csv', criteria='max', output_dir=output_dir)
+    process_and_save(df, 'Map_Time(s)', 'result_map.csv', criteria='min', output_dir=output_dir)
+    process_and_save(df, 'Shuffle_Time(s)', 'result_shuffle.csv', criteria='min', output_dir=output_dir)
+    process_and_save(df, 'Reduce_Time(s)', 'result_reduce.csv', criteria='min', output_dir=output_dir)
+    process_and_save(df, 'Overlap_Ratio(%)', 'result_overlap.csv', criteria='max', output_dir=output_dir)
+
+    print(f"\n✅ 所有分析完成！CSV 文件已保存在 {output_dir}/ 目录下")
 
 
 if __name__ == "__main__":
