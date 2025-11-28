@@ -46,7 +46,7 @@ Reduce任务的启动时机由参数 `mapreduce.job.reduce.slowstart.completedma
 
 可用于分析任务的负载是否均衡、是否存在性能瓶颈，也能反映调度策略是否合理。不同启动策略可能影响 		Reduce 阶段的整体耗时。  
 
-+ **Shuffle+Sort耗时**： 指从 Map 输出数据开始传输给 Reduce 任务（Shuffle），并对数据进行排序（Sort）的总耗时。  
++ **Shuffle耗时**： 指从 Map 输出数据开始传输给 Reduce 任务（Shuffle）。
 + **CPU利用率**： MapReduce 作业运行期间，系统 CPU 的使用率  
 + **内存利用率**：作业执行过程中内存的使用百分比。
 
