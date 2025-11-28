@@ -53,10 +53,11 @@ JOB_LOG="$LOG_DIR/job_output.log"
 # 删除旧输出（避免冲突）
 hdfs dfs -rm -r -f "$OUTPUT" >/dev/null 2>&1
 
-# 执行 Hadoop WordCount
+# 执行 Hadoop WordCount（新增：递归读取子目录）
 hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.4.jar \
     wordcount \
     -D mapreduce.job.reduce.slowstart.completedmaps=$SLOWSTART \
+    -D mapreduce.input.fileinputformat.input.dir.recursive=true \
     "$INPUT" "$OUTPUT" 2>&1 | tee -a "$JOB_LOG"
 
 echo "[INFO] MapReduce job finished."
@@ -72,4 +73,5 @@ echo "[INFO] Monitor stopped."
 echo "[INFO] All logs saved to: $LOG_DIR"
 
 exit 0
+
 
