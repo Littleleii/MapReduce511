@@ -513,7 +513,7 @@ Shuffle 重叠度在 SS<1.0 下均接近 100%：SS=0.2 为 **99.85%**，SS=0.5 �
 
 ![](https://cdn.nlark.com/yuque/0/2025/png/35090272/1764526046244-205ea616-0bd3-45d3-afbd-578ded74cff6.png)
 
-#### **4.2.3 Slowstart 参数对性能的影响总结  **
+#### 4.2.3 Slowstart 参数对性能的影响总结
 
 综合来看：500MB 数据规模下，slowstart=0.2 更偏“总体性能最优”，适合追求最短任务总耗。slowstart=0.5 更适合集群资源利用最大化；slowstart=0.8 则在 Reduce 阶段表现最佳。比起 100MB 数据集的 “0.8 最优”，500MB 更适合提前启动 Reduce（SS=0.2 或 0.5），说明数据规模变大后 Shuffle 带宽占比提升，Reduce 提前启动反而更有利于缓存网络压力。
 
